@@ -1,0 +1,199 @@
+﻿@model List<UserPreferences>
+    <head>
+        <style>
+            .button {
+                background-color: green;
+                color: white;
+                border: 2px solid black;
+                border-radius: 4px
+            }
+        </style>
+    </head>
+    <div class="godown-85" id="godown"></div>
+@{
+    @if (Model.Count >= 1)
+    {
+        <h2>My Search Preferences:</h2>
+        @foreach (UserPreferences u in Model)
+        {
+            <div>
+                <ul>
+
+                    @if (u.Country != null)
+                    {
+                        <li style="font-size:22px"><b>Country:</b> @u.Country</li>
+                    }
+                    @if (u.City != null)
+                    {
+                        <li style="font-size:22px"><b>City:</b> @u.City</li>
+                    }
+                    @if (u.TechArea != null)
+                    {
+                        <li style="font-size:22px"><b>Technology Area:</b> @u.TechArea</li>
+                    }
+                    @if (u.Alignment != null)
+                    {
+                        <li style="font-size:22px"><b>Seamless Alignment:</b> @u.Alignment</li>
+                    }
+                    @if (u.Theme != null)
+                    {
+                        <li style="font-size:22px"><b>Theme:</b> @u.Theme</li>
+                    }
+                    @if (u.Rank != null)
+                    {
+                        <li style="font-size:22px"><b>Minimum Rating:</b> @u.Rank</li>
+                    }
+                </ul>
+            </div>
+        }
+        @foreach (UserPreferences u in Model)
+        {
+            <button class="button" onclick="document.location = '/Investments/Search?country=@u.Country&city=@u.City&theme=@u.Theme&technologyAreas=@u.TechArea&alignment=@u.Alignment&rating=@u.Rank'">Search Using Preferences</button>
+            <button class="button" onclick="document.location = '/Investments/RemoveUserPreferences?id=@u.Id'">Remove These Preferences</button>
+            <button class="button" onclick="document.location = '/Investments/UpdateUserPreferences?id=@u.Id'">Change These Preferences</button>
+        }
+    }
+    else
+    {
+        <h5>Please fill out any of the options in the form below to search startup companies based on your preferences.</h5>
+        <h5>Or go to <a href="/Investments/InvestmentsIndex">Main Search Page</a></h5>
+        <h3>Your Search Preferences:</h3>
+        <div>
+            <form action="/Investments/AddUserPreferences" method="post">
+                <label for="country">Country:</label><br />
+                <select id="countrySel" size="1" name="country">
+                    <option value="" selected="selected">-- Select Country --</option>
+                </select>
+                <br>
+                <label for="city">City:</label><br />
+                <select id="citySel" size="1" name="city">
+                    <option value="" selected="selected">-- Select City--</option>
+                </select>
+                <br>
+                <label for="theme">Theme:</label><br />
+                <select id="theme" name="theme">
+                    <option value="">Any</option>
+                    <option value="The Good Life">The Good Life</option>
+                    <option value="Health Beyond the Hospital">Health Beyond the Hospital</option>
+                    <option value="Robust Future">Robust Future</option>
+                </select><br />
+                <label for="technologyAreas">Technology Areas:</label><br />
+                <select id="technologyAreas" name="technologyAreas">
+                    <option value="">Any</option>
+                    <option value="Advanced Materials">Advanced Materials</option>
+                    <option value="Business Process">Business Process</option>
+                    <option value="Products">Products</option>
+                    <option value="Robotics">Robotics</option>
+                    <option value="Sensing">Sensing</option>
+                    <option value="Software / AI">Software / AI</option>
+                </select><br />
+                <label for="alignment">Seamless Alignment:</label><br />
+                <select id="alignment" name="alignment">
+                    <option value="">Any</option>
+                    <option value="Amway">Amway</option>
+                    <option value="Bissell">Bissell</option>
+                    <option value="Emergent">Emergent</option>
+                    <option value="Faurecia">Faurecia</option>
+                    <option value="Priority">Priority</option>
+                    <option value="Steelcase">Steelcase</option>
+                    <option value="Trinity">Trinity</option>
+                    <option value="Wakestream">Wakestream</option>
+                    <option value="Whirlpool">Whirlpool</option>
+                </select><br />
+                <label for="rating">Minimum Rating (1-15):</label><br />
+                <input type="number" name="rating" placeholder="Rating" min="1" max="15" /><br />
+                <br /> <input class="button" type="submit" value="Save and Search" />
+            </form>
+        </div>
+    }
+}
+<script>
+    var countryStateInfo = {
+        "USA": {
+            "Ann Arbor": {},
+            "Atlanta": {},
+            "Boston": {},
+            "Chicago": {},
+            "Grand Rapids": {},
+            "New Jersey": {},
+            "New York": {},
+            "Philadelphia": {},
+            "Sacremento": {},
+            "Salt Lake City": {},
+            "San Jose": {},
+            "Seattle": {},
+            "Silicon Valley": {},
+            "Tampa": {}
+        },
+        "Australia": {
+            "Sydney": {}
+        },
+        "Canada": {
+            "Toronto": {},
+            "Vancouver": {}
+        },
+        "China": {
+            "Hong Kong": {},
+            "Shenzhen": {}
+        },
+        "Denmark": {
+        },
+        "Finland": {
+            "Helsinki": {}
+        },
+        "France": {
+            "Paris": {},
+            "Nice": {}
+        },
+        "Germany": {
+            "Berlin": {}
+        },
+        "Israel": {
+            "Tel Aviv": {}
+        },
+        "Japan": {
+            "Tokyo": {}
+        },
+        "Mexico": {
+            "Mexico City": {}
+        },
+        "Portugal": {
+            "Libson": {}
+        },
+        "Russia": {
+            "Moscow": {}
+        },
+        "Sinagpore": {
+        },
+        "Spain": {
+            "Barcelona": {}
+        },
+        "United Kingdom": {
+            "London": {},
+            "Bristol": {}
+        }
+    }
+
+
+    window.onload = function () {
+
+        var countrySel = document.getElementById("countrySel");
+        var citySel = document.getElementById("citySel");
+
+        for (var country in countryStateInfo) {
+            countrySel.options[countrySel.options.length] = new Option(country, country);
+        }
+
+        countrySel.onchange = function () {
+
+            citySel.length = 1;
+
+            if (this.selectedIndex < 1)
+                return;
+
+            for (var city in countryStateInfo[this.value]) {
+                citySel.options[citySel.options.length] = new Option(city, city);
+            }
+        }
+    }
+</script>

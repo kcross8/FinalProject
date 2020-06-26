@@ -1,0 +1,57 @@
+@model IEnumerable<Favorite>
+    <head>
+        <style>
+            .button {
+                display: inline-block;
+                padding: 5px 10px;
+                font-size: 8px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                outline: none;
+                color: #fff;
+                background-color: blue;
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 9px #999;
+            }
+
+                .button:hover {
+                    background-color: red;
+                }
+
+                .button:active {
+                    background-color: red;
+                    box-shadow: 0 3px #665;
+                    transform: translateY(4px);
+                }
+        </style>
+    </head>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Rank</th>
+        <th>Comments</th>
+        <th></th>
+
+
+    </tr>
+    @foreach (var fav in Model)
+    {
+        <tr>
+            <td>@fav.StartupName</td>
+            <td>@fav.Rank</td>
+            <td>@fav.PrivateComments</td>
+            <td>
+                <a href="/Investments/RemoveFavorite?id=@fav.Id" class="btn-danger">Remove Favorite</a>
+            </td>
+            <td>
+                <form action="/Investments/AddComment" method="post">
+                    <input type="hidden" name="@fav.Id" />
+                    <input type="text" name="comment" />
+                    <input type="submit" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>

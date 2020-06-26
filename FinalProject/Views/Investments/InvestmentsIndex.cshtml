@@ -1,0 +1,192 @@
+﻿@model List<UserPreferences>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <style>
+        div.absolute {
+            position: absolute;
+            top: 400px;
+            right: 200px;
+            width: 900px;
+            height: 450px;
+           
+        }
+        .button {
+            background-color: green;
+            color: white;
+            border: 2px solid black;
+            border-radius: 4px
+        }
+    </style>
+</head>
+<div class="godown-85" id="godown"></div>
+
+<body>
+    <div class="absolute">
+        <img src="~/images/investmenthandshake.jpg" width="900" height="450" class="hideheader">
+    </div>
+    <div class="text-center">
+        <h2 class="display-4">Welcome to Startup Investment Relations</h2><br />
+        <h5>We have created an innovative and proprietary algorithm to rank start up companies related to Seamless based on their level of risk. Our unique algorithm focuses on company's strengths including uniqueness, team cohesiveness, and funding. The rankings range from 1 to 15 and the higher the ranking the less risky the investment is. </h5> <br />
+        <p>Please fill out any (or none) of the options in the search form below to find startup companies related to Seamless, and see their investment rankings.</p>
+    </div>
+
+    <div>
+        <form action="/Investments/Search" method="post">
+            <label for="companyName">Startup Name:</label><br />
+            <input type="text" name="companyName" placeholder="Startup Name" /><br />
+            <label for="country">Country:</label><br />
+            <select id="countrySel" size="1" name="country">
+                <option value="" selected="selected">-- Select Country --</option>
+            </select>
+            <br>
+            <label for="city">City:</label><br />
+            <select id="citySel" size="1" name="city">
+                <option value="" selected="selected">-- Select City--</option>
+            </select>
+            <br>
+            <label for="theme">Theme:</label><br />
+            <select id="theme" name="theme">
+                <option value="">Any</option>
+                <option value="The Good Life">The Good Life</option>
+                <option value="Health Beyond the Hospital">Health Beyond the Hospital</option>
+                <option value="Robust Future">Robust Future</option>
+            </select><br />
+            <label for="technologyAreas">Technology Areas:</label><br />
+            <select id="technologyAreas" name="technologyAreas">
+                <option value="">Any</option>
+                <option value="Advanced Materials">Advanced Materials</option>
+                <option value="Business Process">Business Process</option>
+                <option value="Products">Products</option>
+                <option value="Robotics">Robotics</option>
+                <option value="Sensing">Sensing</option>
+                <option value="Software / AI">Software / AI</option>
+            </select><br />
+            <label for="alignment">Seamless Alignment:</label><br />
+            <select id="alignment" name="alignment">
+                <option value="">Any</option>
+                <option value="Amway">Amway</option>
+                <option value="Bissell">Bissell</option>
+                <option value="Emergent">Emergent</option>
+                <option value="Faurecia">Faurecia</option>
+                <option value="Priority">Priority</option>
+                <option value="Steelcase">Steelcase</option>
+                <option value="Trinity">Trinity</option>
+                <option value="Wakestream">Wakestream</option>
+                <option value="Whirlpool">Whirlpool</option>
+            </select><br />
+            <label for="rating">Minimum Rating (1-15):</label><br />
+            <input type="number" name="rating" placeholder="Rating" min="1" max="15" /><br />
+            <br /><input class="button" type="submit" value="Search" /><br />
+        </form>
+    </div>
+    @if (Model.Count >= 1)
+    {
+        <div>
+            <h6>OR</h6>
+            @foreach (UserPreferences u in Model)
+            {
+                <form action="/Investments/Search" method="post">
+                    <input type="hidden" name="country" value="@u.Country" />
+                    <input type="hidden" name="city" value="@u.City" />
+                    <input type="hidden" name="theme" value="@u.Theme" />
+                    <input type="hidden" name="technologyAreas" value="@u.TechArea" />
+                    <input type="hidden" name="alignment" value="@u.Alignment" />
+                    <input type="hidden" name="rating" value="@u.Rank" />
+                    <button class="button" type="submit" value="Submit">Search Using Preferences</button>
+                </form>
+            }
+        </div>
+    }
+</body>
+<script>
+    var countryStateInfo = {
+        "USA": {
+            "Ann Arbor": {},
+            "Atlanta": {},
+            "Boston": {},
+            "Chicago": {},
+            "Grand Rapids": {},
+            "New Jersey": {},
+            "New York": {},
+            "Philadelphia": {},
+            "Sacremento": {},
+            "Salt Lake City": {},
+            "San Jose": {},
+            "Seattle": {},
+            "Silicon Valley": {},
+            "Tampa": {}
+        },
+        "Australia": {
+            "Sydney": {}
+        },
+        "Canada": {
+            "Toronto": {},
+            "Vancouver": {}
+        },
+        "China": {
+            "Hong Kong": {},
+            "Shenzhen": {}
+        },
+        "Denmark": {
+        },
+        "Finland": {
+            "Helsinki": {}
+        },
+        "France": {
+            "Paris": {},
+            "Nice": {}
+        },
+        "Germany": {
+            "Berlin": {}
+        },
+        "Israel": {
+            "Tel Aviv": {}
+        },
+        "Japan": {
+            "Tokyo": {}
+        },
+        "Mexico": {
+            "Mexico City": {}
+        },
+        "Portugal": {
+            "Libson": {}
+        },
+        "Russia": {
+            "Moscow": {}
+        },
+        "Sinagpore": {
+        },
+        "Spain": {
+            "Barcelona": {}
+        },
+        "United Kingdom": {
+            "London": {},
+            "Bristol": {}
+        }
+    }
+
+
+    window.onload = function () {
+
+        var countrySel = document.getElementById("countrySel");
+        var citySel = document.getElementById("citySel");
+
+        for (var country in countryStateInfo) {
+            countrySel.options[countrySel.options.length] = new Option(country, country);
+        }
+
+        countrySel.onchange = function () {
+
+            citySel.length = 1;
+
+            if (this.selectedIndex < 1)
+                return;
+
+            for (var city in countryStateInfo[this.value]) {
+                citySel.options[citySel.options.length] = new Option(city, city);
+            }
+        }
+    }
+</script>

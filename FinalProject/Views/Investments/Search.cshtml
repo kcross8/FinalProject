@@ -1,0 +1,136 @@
+﻿
+@model IEnumerable<Record>
+    <head>
+        <style>
+            .button {
+                background-color: green;
+                color: white;
+                border: 2px solid black;
+                border-radius: 4px
+            }
+        </style>
+    </head>
+    <div class="godown-85" id="godown"></div>
+<label for="myInput">Further filter your search: </label>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Filter search" title="Type in a keyword">
+<p class="hideheader">To sort each column click on the column name.  The first time you click on the column name, the column will be sorted in ascending order.  If you click on the column name again, the column will be sorted in descending order. </p>
+<table id="myTable" class="table">
+    <tr class="header">
+
+        <th class="hideheader" onclick="sortTable(0)" style="cursor:pointer">Company Name</th>
+        <th class="hideheader" onclick="sortTable(1)" style="cursor:pointer">Country</th>
+        <th class="hideheader" onclick="sortTable(2)" style="cursor:pointer">City</th>
+        <th class="hideheader" onclick="sortTable(3)" style="cursor:pointer">Themes</th>
+        <th class="hideheader" onclick="sortTable(4)" style="cursor:pointer">Technology Areas</th>
+        <th class="hideheader" onclick="sortTable(5)" style="cursor:pointer">Alignment</th>
+        <th class="hideheader" onclick="sortTable(6)" style="cursor:pointer">Ranking</th>
+        <th class="hideheader" onclick="sortTable(7)" style="cursor:pointer">Public Comments</th>
+        <th class="hideheader"></th>
+
+    </tr>
+
+    @if (Model.Count() > 0)
+    {
+        foreach (Record r in Model)
+            @if (Model != null)
+            {
+                string newRating = r.startups.Rating.ToString("00");
+                <tr>
+                    <td class="td1"><a href="/Investments/Individual?id=@r.id">@r.startups.CompanyName</a></td>
+                    <td class="td1">@r.startups.Country</td>
+                    <td class="td1">@r.startups.City</td>
+                    <td class="td1">@r.startups.Themes</td>
+                    <td class="td1">@r.startups.TechnologyAreas</td>
+                    <td class="hideheader">@r.startups.Alignment</td>
+                    <td class="td1">@newRating</td>
+                    <td>
+                        @{
+                            foreach (Comments c in r.startups.Comments)
+                            {
+                                 <p> @c.Comment </p> <br />
+                            }
+                         }
+                            
+                    </td>
+                    <td>
+                        <button class="button" onclick="document.location = '/Investments/AddToFavorite?name=@r.startups.CompanyName&rating=@r.startups.Rating&id=@r.id'">Add to Favorites</button>
+                    </td>
+                </tr>
+            }
+        }
+</table>
+@if (Model.Count() <= 0)
+{
+    <p>Sorry, no companies found under those terms. Would you like to <a href="/Investments/InvestmentsIndex">go back to the Search Page</a></p>
+}
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("myTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            td2 = tr[i].getElementsByTagName("td")[1];
+            td3 = tr[i].getElementsByTagName("td")[2];
+            td4 = tr[i].getElementsByTagName("td")[3];
+            td5 = tr[i].getElementsByTagName("td")[4];
+            td6 = tr[i].getElementsByTagName("td")[5];
+            td7 = tr[i].getElementsByTagName("td")[6];
+            td8 = tr[i].getElementsByTagName("td")[7];
+            if (td || td2 || td3 || td4 || td5 || td6 || td7 || td8) {
+                txtValue = td.textContent || td.innerText;
+                txtValue2 = td2.textContent || td2.innerText;
+                txtValue3 = td3.textContent || td3.innerText;
+                txtValue4 = td4.textContent || td4.innerText;
+                txtValue5 = td5.textContent || td5.innerText;
+                txtValue6 = td6.textContent || td6.innerText;
+                txtValue7 = td7.textContent || td7.innerText;
+                txtValue8 = td8.textContent || td8.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1 || txtValue3.toUpperCase().indexOf(filter) > -1
+                    || txtValue4.toUpperCase().indexOf(filter) > -1 || txtValue5.toUpperCase().indexOf(filter) > -1 || txtValue6.toUpperCase().indexOf(filter) > -1 || txtValue7.toUpperCase().indexOf(filter) > -1 || txtValue8.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

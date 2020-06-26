@@ -1,0 +1,31 @@
+﻿
+@model Favorite
+    <head>
+        <style>
+            .button {
+                background-color: green;
+                color: white;
+                border: 2px solid black;
+                border-radius: 4px
+            }
+        </style>
+    </head>
+    <div class="godown-85" id="godown"></div>
+<h2 class="alert-danger">Are you sure you would like to delete this Favorite?</h2>
+<table class="table">
+    <tr>
+        <th class="hideheader">Name</th>
+        <th class="hideheader">Rank</th>
+        <th class="hideheader">Comment</th>
+        <th></th>
+
+    </tr>
+    <tr>
+        <td class="td2">@Model.StartupName</a></td>
+        <td class="td2">@Model.Rank</td>
+        <td class="td2">@Model.PrivateComments</td>
+    </tr>
+</table>
+<button class="button" onclick="document.location = '/Investments/RemoveFavorite?id=@Model.Id'">YES</button>
+<button class="button" onclick="window.location = document.referrer">NO</button>
+

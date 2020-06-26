@@ -1,0 +1,82 @@
+@model Record
+    <head>
+        <style>
+            .button {
+                background-color: green;
+                color: white;
+                border: 2px solid black;
+                border-radius: 4px
+            }
+        </style>
+    </head>
+    <div class="godown-85" id="godown"></div>
+
+<h1>@Model.startups.CompanyName</h1><br />
+<h2 style="color:green">Investment Strategy Rating: @Model.startups.Rating</h2>
+<h4>Company Website: <a href ="@Model.startups.CompanyWebsite">@Model.startups.CompanyWebsite</a></h4>
+<h4>Company Summary: @Model.startups.TwoLineCompanySummary</h4>
+@if (Model.startups.City != null)
+{
+    <h4>Location: @Model.startups.City, @Model.startups.Country</h4><br />
+}
+else
+{
+    <h4>Location: @Model.startups.Country</h4><br />
+}
+<div>
+ <h3>Company Information:</h3>
+    <ul>
+        @if (Model.startups.Alignment != null)
+        {
+            <li><b>This startup is aligned with these Seamless Companies:</b> @Model.startups.Alignment</li>
+        }
+        else
+        {
+            <li><b> This startup is not aligned with any Seamless Companies yet. </b> </li>
+        }
+        @if (Model.startups.TechnologyAreas != null)
+        {
+            <li><b>Technology Area:</b> @Model.startups.TechnologyAreas</li>
+        }
+        else 
+        { 
+            <li><b>Technology Area:</b> None currently listed </li>
+        }
+       @if (Model.startups.Themes != null)
+       {
+        <li><b>Themes:</b> @Model.startups.Themes</li>
+       }
+       else
+       {
+        <li><b>Themes:</b> None currently listed </li>
+       }
+        <li><b>Total Funds Raised:</b> @Model.startups.Raised</li>
+   </ul>
+</div><br />
+
+<div>
+    <h4>Public Comments:</h4>
+    <ul>
+        @if (Model.startups.Comments.Count > 0)
+        {
+       @foreach (Comments c in Model.startups.Comments)
+       {
+
+        <li> @c.Comment</li>
+
+       }
+        }
+        else
+        {
+            <li>No public comments yet.</li>
+        }
+    </ul>
+</div>
+    
+
+<button class="button" onclick="document.location = '/Investments/AddPublicComment?companyName=@Model.startups.CompanyName'">Add Public Comment</button>
+
+
+<button class="button" onclick="document.location = '/Investments/AddToFavorite?name=@Model.startups.CompanyName&rating=@Model.startups.Rating&id=@Model.id'">Add to Favorites</button>
+<button class="button" onclick="window.location = document.referrer">Back to Results</button>
+

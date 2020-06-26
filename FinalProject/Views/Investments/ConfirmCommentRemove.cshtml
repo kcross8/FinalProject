@@ -1,0 +1,17 @@
+﻿@model FinalProject.Models.Comments
+    <head>
+        <style>
+            .button {
+                background-color: green;
+                color: white;
+                border: 2px solid black;
+                border-radius: 4px
+            }
+        </style>
+    </head>
+    <div class="godown-85" id="godown"></div>
+
+<h2 class="alert-danger">Are you sure you would like to delete this comment?</h2>
+<h5>@Model.Comment</h5>
+<button class="button" onclick="document.location = '/Investments/RemoveComment?id=@Model.Id'">YES</button>
+<button class="button" onclick="window.location = document.referrer">NO</button>

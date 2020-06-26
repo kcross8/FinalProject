@@ -1,0 +1,230 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+#godown {
+    height: 85px;
+}
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+/* Table Styling
+--------------------------------------------------*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tr:nth-of-type(even) {
+    background-color: lightgray;
+}
+
+th {
+    font-weight: bold;
+    background-color: black;
+    color: whitesmoke;
+}
+
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+/* Mobile Responsiveness
+--------------------------------------------------*/
+@media only screen and (max-width: 700px) {
+    button{
+        font-size: 16px;
+    }
+    textarea{
+        font-size: 20px;
+    }
+    input{
+        font-size: 16px;
+    }
+    
+    table {
+        font-size: 24px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        left: 30%;
+        position: relative;
+        padding-left: 50%;
+        width: 70%;
+    }
+
+    .td1:before {
+        position: absolute;
+        top: 10px;
+        right: 100%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-size: 20px;
+    }
+
+    .td1:nth-of-type(1):before {
+        content: "Name: ";
+    }
+
+    .td1:nth-of-type(2):before {
+        content: "Country: ";
+    }
+
+    .td1:nth-of-type(3):before {
+        content: "City: ";
+    }
+
+    .td1:nth-of-type(4):before {
+        content: "Theme: ";
+    }
+
+    .td1:nth-of-type(5):before {
+        content: "Tech: ";
+    }
+
+    .td1:nth-of-type(7):before {
+        content: "Rank: ";
+    }
+    .td2:before {
+        position: absolute;
+        top: 10px;
+        right: 100%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-size: 20px;
+    }
+
+    .td2:nth-of-type(1):before {
+        content: "Name: ";
+    }
+
+    .td2:nth-of-type(2):before {
+        content: "Rank: ";
+    }
+    .td2:nth-of-type(3):before {
+        content: "Comment: ";
+    }
+    .td3:before {
+        position: absolute;
+        top: 10px;
+        right: 100%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-size: 20px;
+    }
+
+    .td3:nth-of-type(1):before {
+        content: "Country: ";
+    }
+
+    .td3:nth-of-type(2):before {
+        content: "City: ";
+    }
+
+    .td3:nth-of-type(3):before {
+        content: "Tech: ";
+    }
+
+    .td3:nth-of-type(4):before {
+        content: "Alignment: ";
+    }
+
+    .td3:nth-of-type(5):before {
+        content: "Theme: ";
+    }
+
+    .td3:nth-of-type(6):before {
+        content: "Rank: ";
+    }
+
+    .hideheader {
+        display: none;
+    }
+    nav{
+        position:relative !important;
+    }
+}

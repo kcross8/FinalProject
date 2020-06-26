@@ -1,0 +1,152 @@
+﻿@model UserPreferences
+    <head>
+        <style>
+            .button {
+                background-color: green;
+                color: white;
+                border: 2px solid black;
+                border-radius: 4px
+            }
+        </style>
+    </head>
+    <div class="godown-85" id="godown"></div>
+
+    <div>
+        <form action="/Investments/ChangeUserPreferences" method="post">
+            <label for="country">Country:</label><br />
+            <select id="countrySel" size="1" name="country">
+                <option value="" selected="selected">-- Select Country --</option>
+            </select>
+            <br>
+            <label for="city">City:</label><br />
+            <select id="citySel" size="1" name="city">
+                <option value="" selected="selected">-- Select City--</option>
+            </select>
+            <br>
+            <label for="theme">Theme:</label><br />
+            <select id="theme" name="theme" value="@Model.Theme">
+                <option value="">Any</option>
+                <option value="The Good Life">The Good Life</option>
+                <option value="Health Beyond the Hospital">Health Beyond the Hospital</option>
+                <option value="Robust Future">Robust Future</option>
+            </select><br />
+            <label for="technologyAreas">Technology Areas:</label><br />
+            <select id="technologyAreas" name="technologyAreas" value="@Model.TechArea">
+                <option value="">Any</option>
+                <option value="Advanced Materials">Advanced Materials</option>
+                <option value="Business Process">Business Process</option>
+                <option value="Products">Products</option>
+                <option value="Robotics">Robotics</option>
+                <option value="Sensing">Sensing</option>
+                <option value="Software / AI">Software / AI</option>
+            </select><br />
+            <label for="alignment">Seamless Alignment:</label><br />
+            <select id="alignment" name="alignment" value="@Model.Alignment">
+                <option value="">Any</option>
+                <option value="Amway">Amway</option>
+                <option value="Bissell">Bissell</option>
+                <option value="Emergent">Emergent</option>
+                <option value="Faurecia">Faurecia</option>
+                <option value="Priority">Priority</option>
+                <option value="Steelcase">Steelcase</option>
+                <option value="Trinity">Trinity</option>
+                <option value="Wakestream">Wakestream</option>
+                <option value="Whirlpool">Whirlpool</option>
+            </select><br />
+            <label for="rating">Minimum Rating:</label><br />
+            <input type="number" name="rating" placeholder="Rating" value="@Model.Rank" /><br />
+            <br />
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input class="button" type="submit" />
+        </form>
+    </div>
+    <script>
+    var countryStateInfo = {
+        "USA": {
+            "Ann Arbor": {},
+            "Atlanta": {},
+            "Boston": {},
+            "Chicago": {},
+            "Grand Rapids": {},
+            "New Jersey": {},
+            "New York": {},
+            "Philadelphia": {},
+            "Sacremento": {},
+            "Salt Lake City": {},
+            "San Jose": {},
+            "Seattle": {},
+            "Silicon Valley": {},
+            "Tampa": {}
+        },
+        "Australia": {
+            "Sydney": {}
+        },
+        "Canada": {
+            "Toronto": {},
+            "Vancouver": {}
+        },
+        "China": {
+            "Hong Kong": {},
+            "Shenzhen": {}
+        },
+        "Denmark": {
+        },
+        "Finland": {
+            "Helsinki": {}
+        },
+        "France": {
+            "Paris": {},
+            "Nice": {}
+        },
+        "Germany": {
+            "Berlin": {}
+        },
+        "Israel": {
+            "Tel Aviv": {}
+        },
+        "Japan": {
+            "Tokyo": {}
+        },
+        "Mexico": {
+            "Mexico City": {}
+        },
+        "Portugal": {
+            "Libson": {}
+        },
+        "Russia": {
+            "Moscow": {}
+        },
+        "Sinagpore": {
+        },
+        "Spain": {
+            "Barcelona": {}
+        },
+        "United Kingdom": {
+            "London": {},
+            "Bristol": {}
+        }
+    }
+
+
+    window.onload = function () {
+
+        var countrySel = document.getElementById("countrySel");
+        var citySel = document.getElementById("citySel");
+
+        for (var country in countryStateInfo) {
+            countrySel.options[countrySel.options.length] = new Option(country, country);
+        }
+
+        countrySel.onchange = function () {
+
+            citySel.length = 1;
+
+            if (this.selectedIndex < 1)
+                return;
+
+            for (var city in countryStateInfo[this.value]) {
+                citySel.options[citySel.options.length] = new Option(city, city);
+            }
+        }
+    }
+    </script>
